@@ -1,0 +1,52 @@
+[[object]]
+  name = "Table"
+  initial = "serving"
+
+  [object.states]
+    active.initial = ""
+    active.events = [
+      {sig = "TEST", target = "active"},
+      {sig = "EAT", target = "active"}
+    ]
+
+    active.serving.initial = ""
+    active.serving.events = [
+      {sig = "HUNGARY", target = ["active", "active"], conditions = "bothfree"},
+      {sig = "DONE", target = "active"},
+      {sig = "EAT", target = "active"},
+      {sig = "PAUSE", target = "paused"}
+    ]
+
+    active.paused.initial = ""
+    active.paused.events = [
+      {sig = "SERVE", target = "serving"},
+      {sig = "HUNGARY", target = "paused"},
+      {sig = "DONE", target = "paused"}
+    ]
+
+[[object]]
+  name = "Philo"
+  initial = "thinking"
+
+  [object.states]
+    thinking.initial = ""
+    thinking.events = [
+      {sig = "TIMEOUT", target = "hungary"},
+      {sig = ["EAT", "DONE"], target = "thinking"},
+    ]
+
+    hungary.initial = ""
+    hungary.events = [
+      {
+        sig = "EAT",
+        target = ["eating", "hungary"],
+        condition = ["Q_EVT_CAST(TableEvt)->philoNum == PHILO_ID(me)"]
+      },
+      {sig = "DONE", target = "hungary"}
+    ]
+
+    eating.initial = ""
+    eating.events = [
+      {sig = "TIMEOUT", target = "thinking"},
+      {sig = ["EAT", "DONE"], target = "eating"}
+    ]
