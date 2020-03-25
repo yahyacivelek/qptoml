@@ -13,7 +13,7 @@ However...
 
 Using *QM tool* has 2 major drawbacks:
 
-1. You can't use other text editors to edit your code. This is like one-way ticket. Therefore, you will be deprived of the benefits such as code completion, colorization etc. that popular editors (vscode, sublime text etc.) will provide. 
+1. You can't use other text editors to edit your code. This is like one-way ticket. Therefore, you will be deprived of the benefits such as code completion, colorization etc. that popular editors (vscode, sublime text etc.) will provide.
 
 2. It is not good at complying with git. QM (XML format) is very difficult to commit and merge properly because lots of lines change even if a tiny modification is intended.
 
@@ -21,7 +21,7 @@ Using *QM tool* has 2 major drawbacks:
 
 The proposed **qptoml** tool will use the simplicity of [toml](https://github.com/toml-lang/toml) to represent state machines textually.
 
-It is intended to be used to generate minimal code automatically in C just to construct general state machine structure. 
+It is intended to be used to generate minimal code automatically in C just to construct general state machine structure.
 There is no need to be dependent upon qm tool and you don't need to write into qm editor directly. You just configure the general state structure using **qptoml** and you will handle the rest using any super cool text editor you choose.
 
 ## Dining Philosopher Problem (Dpp) Example
@@ -43,13 +43,11 @@ Here is textual representations of these objects in qptoml:
   initial = "serving"
 
   [object.states]
-    active.initial = ""
     active.events = [
       {sig = "TEST", target = "active"},
       {sig = "EAT", target = "active"}
     ]
 
-    active.serving.initial = ""
     active.serving.events = [
       {sig = "HUNGARY", target = ["active", "active"], conditions = "bothfree"},
       {sig = "DONE", target = "active"},
@@ -57,7 +55,6 @@ Here is textual representations of these objects in qptoml:
       {sig = "PAUSE", target = "paused"}
     ]
 
-    active.paused.initial = ""
     active.paused.events = [
       {sig = "SERVE", target = "serving"},
       {sig = "HUNGARY", target = "paused"},
@@ -75,7 +72,6 @@ Here is textual representations of these objects in qptoml:
       {sig = ["EAT", "DONE"], target = "thinking"},
     ]
 
-    hungary.initial = ""
     hungary.events = [
       {
         sig = "EAT",
@@ -85,7 +81,6 @@ Here is textual representations of these objects in qptoml:
       {sig = "DONE", target = "hungary"}
     ]
 
-    eating.initial = ""
     eating.events = [
       {sig = "TIMEOUT", target = "thinking"},
       {sig = ["EAT", "DONE"], target = "eating"}
@@ -99,7 +94,7 @@ name = "Table"
 initial = "serving"
 ```
 
-`name` is the name of the active object. 
+`name` is the name of the active object.
 `initial` is the initial state of the active object.
 
 ```
@@ -117,11 +112,11 @@ active.serving.initial = ""
 
 Before starting to define state structure in an object you will need to type `[object.states]`.
 
-`active.serving.initial = ""` assigns initial state to the *serving* state in *active* state. As it is '""', it has no initial state. In any case, initial state of a state **must** be defined.
+`active.serving.initial = ""` assigns initial state to the *serving* state in *active* state. As it is '""', it has no initial state. This is optional if there is no initial state.
 
 `active.serving.events = [...]` assigns an array of events that *serving* state in *active* state is waiting for. Right side of the expression **must** be an array type.
 
-`{sig = "HUNGARY", target = ["active", "active"], conditions = "bothfree"}`: 
+`{sig = "HUNGARY", target = ["active", "active"], conditions = "bothfree"}`:
 Event signal name is *HUNGARY*. `target` is used to define states to be transitioned as a result of triggering *HUNGARY* event. `conditions` is used as guards to define which state to be transitioned. In this example, no transition occurs because the name of the target states (*active*) is the same as the name of the state.
 
 If `target` has only one element, there is no need to assign an array. You are free to use an array, though.
