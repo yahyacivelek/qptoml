@@ -4,16 +4,16 @@
 
 ## Dining Philosopher Problem (Dpp) Example
 
-I will explain the **sctoml** by taking classical dpp as an example which is used in qp in examples.
+I will explain the **sctoml** by taking classical dpp as an example.
 
-Below is the visual diagram of dpp state machines taken from qm tool:
+Below is the visual diagram of dpp state machines taken from [QM](http://www.state-machine.com/qm/) tool:
 
 ![Table Active Object](img/Table.png)
 ![Philo Active Object](img/Philo.png)
 
-First one Table and the second one is Philo active objects.
+First one *Table* and the second one is *Philo* active objects.
 
-Here is textual representations of these objects in sctoml:
+Here is textual representations of these objects in **sctoml**:
 
 ```
 [[object]]
