@@ -8,7 +8,7 @@
       {sig = "EAT", target = "active"}
     ]
 
-    avtive.serving.enter = true
+    active.serving.enter = ""
     active.serving.events = [
       {sig = "HUNGARY", target = ["active", "active"], conditions = "bothfree"},
       {sig = "DONE", target = "active"},
@@ -16,8 +16,8 @@
       {sig = "PAUSE", target = "paused"}
     ]
 
-    active.paused.enter = true
-    active.paused.exit = true
+    active.paused.enter = ""
+    active.paused.exit = ""
     active.paused.events = [
       {sig = "SERVE", target = "serving"},
       {sig = "HUNGARY", target = "paused"},
@@ -30,14 +30,14 @@
 
   [object.states]
     thinking.initial = ""
-    thinking.enter = true
-    thinking.exit = true
+    thinking.enter = ""
+    thinking.exit = ""
     thinking.events = [
       {sig = "TIMEOUT", target = "hungary"},
       {sig = ["EAT", "DONE"], target = "thinking"},
     ]
 
-    hungary.enter = true
+    hungary.enter = ""
     hungary.events = [
       {
         sig = "EAT",
@@ -47,8 +47,8 @@
       {sig = "DONE", target = "hungary"}
     ]
 
-    eating.enter = true
-    eating.exit = true
+    eating.enter = "BSP_displayPaused(1U);"
+    eating.exit = "BSP_displayPaused(0U);"
     eating.events = [
       {sig = "TIMEOUT", target = "thinking"},
       {sig = ["EAT", "DONE"], target = "eating"}
