@@ -1,3 +1,4 @@
+name = "qpp"
 [[object]]
   name = "Table"
   initial = "serving"
